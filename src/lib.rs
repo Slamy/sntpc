@@ -111,15 +111,16 @@ pub use crate::types::*;
 #[cfg(feature = "async")]
 pub mod async_impl;
 
+#[cfg(feature = "std")]
 use core::fmt::Debug;
+#[cfg(feature = "std")]
 use core::iter::Iterator;
+#[cfg(feature = "std")]
 use core::marker::Copy;
+#[cfg(feature = "std")]
 use core::mem;
 
 pub(crate) mod net {
-    #[cfg(not(feature = "std"))]
-    pub use no_std_net::{SocketAddr, ToSocketAddrs};
-
     #[cfg(feature = "std")]
     pub use std::net::{SocketAddr, ToSocketAddrs, UdpSocket};
 }
@@ -217,6 +218,7 @@ use log::debug;
 ///
 /// // .. process the result
 /// ```
+#[cfg(feature = "std")]
 pub fn get_time<A, U, T>(
     pool_addrs: A,
     socket: U,
@@ -334,6 +336,7 @@ where
 /// # #[cfg(feature = "std")]
 /// let result = sntpc::sntp_send_request("time.google.com:123", &socket, ntp_context);
 /// ```
+#[cfg(feature = "std")]
 pub fn sntp_send_request<A, U, T>(
     dest: A,
     socket: &U,
@@ -441,6 +444,7 @@ where
 ///     let time = sntpc::sntp_process_response("time.google.com:123", &socket, ntp_context, result);
 /// }
 /// ```
+#[cfg(feature = "std")]
 pub fn sntp_process_response<A, U, T>(
     dest: A,
     socket: &U,
@@ -483,6 +487,7 @@ where
     result
 }
 
+#[cfg(feature = "std")]
 fn send_request<A: net::ToSocketAddrs, U: NtpUdpSocket>(
     dest: A,
     req: &NtpPacket,

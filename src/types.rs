@@ -6,6 +6,7 @@ use core::mem;
 use log::debug;
 
 use crate::get_ntp_timestamp;
+#[cfg(feature = "std")]
 use crate::net;
 
 /// SNTP mode value bit mask
@@ -37,6 +38,7 @@ pub(crate) const SECONDS_FRAC_MASK: u64 = 0xffff_ffff;
 pub type Result<T> = core::result::Result<T, Error>;
 
 #[derive(Debug)]
+#[repr(C)]
 pub(crate) struct NtpPacket {
     pub(crate) li_vn_mode: u8,
     pub(crate) stratum: u8,
@@ -292,6 +294,7 @@ mod sup {
 pub use sup::*;
 
 /// A trait encapsulating UDP socket interface required for SNTP client operations
+#[cfg(feature = "std")]
 pub trait NtpUdpSocket {
     /// Send the given buffer to an address provided. On success, returns the number
     /// of bytes written.
