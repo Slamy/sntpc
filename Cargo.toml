@@ -29,7 +29,7 @@ async_tokio = ["std", "async", "tokio", "async-trait"]
 [dependencies]
 log = { version = "~0.4", optional = true }
 chrono = { version = "~0.4", default-features = false, optional = true }
-embassy-net = { version = "0.3", features = ["udp"] }
+embassy-net = { version = "0.4", features = ["udp"] }
 
 async-trait = { version = "0.1", optional = true }
 tokio = { version = "1", features = ["full"], optional = true }
